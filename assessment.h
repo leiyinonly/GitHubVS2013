@@ -14,6 +14,7 @@ double calGradSim(const IplImage* image1, const IplImage* image2);
 double calMISSIM(const IplImage* image1, const IplImage* image2, int n);
 double calISSIM(const IplImage* image1, const IplImage* image2);
 double calINRSS(const IplImage* input);
+double calRingMetric(const IplImage* input, int d);
 
 IplImage* gradientImage(const IplImage* input);
 

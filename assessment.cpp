@@ -492,3 +492,31 @@ double calINRSS(const IplImage* input)
 
 	return INRSS;
 }
+
+/*************************************************************************
+* @函数名称：
+*	calRingMetric()
+* @输入:
+*   const IplImage* input           - 输入8U图像
+*   int d							- 使用的模糊核边长的一半
+* @输出:
+*   double INRSS				    - 输出INRSS值
+* @说明:
+*   计算图像的平行边缘值用以评价振铃效应
+**************************************************************************/
+double calRingMetric(const IplImage* input, int d)
+{
+	double INRSS = 0;
+	double missim = 0;
+
+	IplImage* lp_image = cvCloneImage(input);
+
+	cvSmooth(input, lp_image, CV_GAUSSIAN, 7, 7, 6);
+	missim = calMISSIM(input, lp_image, 8);
+
+	INRSS = 1 - missim;
+
+	cvReleaseImage(&lp_image);
+
+	return INRSS;
+}
