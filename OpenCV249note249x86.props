@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>F:\opencv\build\include;F:\opencv\build\include\opencv2;F:\opencv\build\include\opencv;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\opencv\build\x86\vc12\lib;$(LibraryPath)</LibraryPath>
+    <_PropertySheetDisplayName>OpenCVD</_PropertySheetDisplayName>
+    <ExecutablePath>F:\opencv\build\x86\vc12\bin;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>opencv_core249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
