@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	IplImage* input1;
 	IplImage* dst;
 
-	if ((input1 = cvLoadImage("redTree.png", 0)) == NULL)//keeper_256_320.jpg、lena_circular_10_50.bmp、keeper_256_320_10_50_blur.jpg 0-读灰度图，1-读彩色图，-1-读原通道
+	if ((input1 = cvLoadImage("redTree_kdeblur.jpg", 0)) == NULL)//keeper_256_320.jpg、lena_circular_10_50.bmp、keeper_256_320_10_50_blur.jpg 0-读灰度图，1-读彩色图，-1-读原通道
 	{	
 		printf("Input1 no image data ！\n");
 		return -1;
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	double INRSS = calINRSS(input1);
 
 	printf("INRSS=%f\n", INRSS);
-
+	//double a = calRingMetric(input1,10);
 	//genaratePsf(psf1, 10, 50);
 	//cvScale(psf1, psf, 1, 0);
 	//cvScale(input1, image, 1, 0);

@@ -506,17 +506,54 @@ double calINRSS(const IplImage* input)
 **************************************************************************/
 double calRingMetric(const IplImage* input, int d)
 {
-	double INRSS = 0;
-	double missim = 0;
+	int i = 0, j = 0, p = 0, q = 0;
+	int id = 0, jd = 0, is = 0, js = 0;
+	double rm = 0;
+	double cos45 = cos(45 / 180 * PI);
+	double sin45 = sin(45 / 180 * PI);
+	double cos135 = cos(135 / 180 * PI);
+	double sin135 = sin(135 / 180 * PI);
 
-	IplImage* lp_image = cvCloneImage(input);
+	IplImage* edge = cvCloneImage(input);
+	CvMat* rm1 = cvCreateMat(input->height, input->width, CV_8UC1);
+	CvMat* rm2 = cvCreateMat(input->height, input->width, CV_8UC1);
+	CvMat* rm3 = cvCreateMat(input->height, input->width, CV_8UC1);
+	CvMat* rm4 = cvCreateMat(input->height, input->width, CV_8UC1);
 
-	cvSmooth(input, lp_image, CV_GAUSSIAN, 7, 7, 6);
-	missim = calMISSIM(input, lp_image, 8);
+	cvZero(rm1);
+	cvZero(rm2);
+	cvZero(rm3);
+	cvZero(rm4);
 
-	INRSS = 1 - missim;
+	//±ßÔµ¼ì²â
+	cvCanny(input, edge, 0.04*255, 0.1*255, 3);
+	cvScale(edge, edge, 1.0 / 255, 0);
+	//cvNamedWindow("psf",1);
+	//cvShowImage("psf", edge);
+	int lambda = 3;
+	for (i = d + lambda; i < input->height - (d + lambda); i++)
+	{
+		uchar* pe = (uchar*)(edge->imageData + i*edge->widthStep);
+		uchar* prm1 = (uchar*)(rm1->data.ptr + i*rm1->step);
+		uchar* prm2 = (uchar*)(rm2->data.ptr + i*rm2->step);
+		uchar* prm3 = (uchar*)(rm3->data.ptr + i*rm3->step);
+		uchar* prm4 = (uchar*)(rm4->data.ptr + i*rm4->step);
 
-	cvReleaseImage(&lp_image);
+		for (j = d + lambda; j < input->width - (d + lambda); j++)
+		{
+			if (pe[j] == 1)
+			{
+				//0¶È¼ì²â
+				for (p = d - lambda; p < d + lambda; p++)
+				{
+					id = i + d * 1;
+					jd = j;
 
-	return INRSS;
+				}
+			}
+		}
+	}
+	
+
+	return rm;
 }
